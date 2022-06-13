@@ -4,6 +4,7 @@ const bodyparser = require('body-parser');
 const app = express();
 const session = require('express-session');
 const {v4:uuidv4} = require('uuid');
+const router = require('./router');
 
 const PORT = process.env.PORT || 3000;
 app.use(bodyparser.json());
@@ -20,8 +21,12 @@ app.use(session({
     saveUninitialized: true
 }))
 
+app.use('/route', router);
+
 app.get('/', (req, res) => {
     res.render('base',{title: "Login System"});
 })
+
+
 
 app.listen(PORT, () => {console.log("Listening to the port http://localhost:" + PORT)});
